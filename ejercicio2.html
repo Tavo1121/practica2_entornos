@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="ejercicio2.css">
+    <script>
+        function mostrarSituacionFamiliar() {
+            let sexo = document.getElementById("sexo").value;
+            let situacionFamiliarSelect = document.getElementById("situacionFamiliar");
+            
+            situacionFamiliarSelect.innerHTML = ''; 
+
+            if (sexo === "masculino" || sexo === "femenino") {
+                situacionFamiliarSelect.innerHTML = `
+                    <option value="">Selecciona</option>
+                    <option value="soltero">Soltero</option>
+                    <option value="casado">Casado</option>
+                    <option value="divorciado">Divorciado</option>
+                    <option value="viudo">Viudo</option>
+                `;
+            } else {
+                situacionFamiliarSelect.innerHTML = `
+                    <option value="">Selecciona</option>
+                    <option value="soltero">Soltero/a</option>
+                    <option value="casado">Casado/a</option>
+                    <option value="divorciado">Divorciado/a</option>
+                    <option value="viudo">Viudo/a</option>
+                `;
+            }
+        }
+
+        function validarFormulario() {
+            let edad = document.getElementById("edad").value;
+            let email = document.getElementById("email").value;
+            let telefono = document.getElementById("telefono").value;
+
+            let mensajeError = "";
+
+            if (edad < 18) {
+                mensajeError += "La edad debe ser mayor o igual a 18 años. ";
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                mensajeError += "El email debe tener un formato válido. ";
+            }
+
+            if (!/^\d+$/.test(telefono)) {
+                mensajeError += "El teléfono solo puede contener números. ";
+            }
+
+            if (mensajeError !== "") {
+                let divError = document.getElementById("errorDiv");
+                divError.innerText = mensajeError;
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2>Formulario</h2>
+    <form action="" method="" oninput="mostrarSituacionFamiliar()" onsubmit="return validarFormulario()">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
+        </div>
+        <div>
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" name="apellidos" placeholder="Ingrese su apellido" required>
+        </div>
+        <div>
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" placeholder="Ingrese su edad" required>
+        </div>
+        <div>
+            <label for="sexo">Sexo:</label>
+            <select id="sexo" name="sexo" required>
+                <option value="">Selecciona</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="otro">Otro</option>
+            </select>
+        </div>
+        <div>
+            <label for="situacionFamiliar">Situación Familiar:</label>
+            <select id="situacionFamiliar" name="situacionFamiliar" >
+                <option value="">Selecciona</option>
+            </select>
+        </div>
+        <div>
+            <label for="email">Correo electrónico:</label>
+            <input type="text" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
+        </div>
+        <div>
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" name="telefono" placeholder="Ingrese su numero de telefono" required>
+            
+        </div>
+        <button type="submit">Enviar</button>
+        <div id="errorDiv" style="color: red;"></div>
+    </form>
+</body>
+</html>
